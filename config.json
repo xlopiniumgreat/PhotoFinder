@@ -1,0 +1,10 @@
+{
+  "t_low": 0.38,
+  "t_high": 0.50,
+  "det_size": 1280,
+  "det_thresh": 0.4,
+  "model": "buffalo_l",
+  "model_dir": "models",
+  "device": "cpu",
+  "output_mode": "copy"
+}

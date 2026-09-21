@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Build output
+build/
+dist/
+*.spec
+
+# Local photos, models and results
+photos/
+references/
+models/
+output/
+outputs/
+*.onnx
+*.jpg
+*.jpeg
+*.png
+*.heic
+*.heif
+
+# Local configuration may contain personal paths
+config.local.json
+.env
+

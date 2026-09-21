@@ -1,0 +1,6 @@
+numpy>=1.26.4,<2
+insightface==0.7.3
+opencv-python>=4.9,<4.12
+Pillow>=11,<13
+pillow-heif>=0.22,<2
+tqdm>=4.66,<5
