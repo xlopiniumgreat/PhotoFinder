@@ -1,0 +1,45 @@
+name: Build and publish Windows app
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install GPU runtime and build tools
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r requirements-gpu.txt
+          python -m pip install pyinstaller==6.22.3
+
+      - name: Build portable app
+        run: python build_windows.py
+
+      - name: Create downloadable archives
+        run: python scripts/pack_release.py --app dist/PhotoFinder --out release
+
+      - name: Record third-party packages
+        shell: pwsh
+        run: python -m pip freeze | Set-Content -Encoding utf8 release/THIRD_PARTY_DEPENDENCIES.txt
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            release/*.zip
+            release/THIRD_PARTY_DEPENDENCIES.txt
